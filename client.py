@@ -12,11 +12,10 @@ class SendFileClient:
         self.clientSocket.connect ((ip_address,server_port))
 
     def send_header(self,file_path):
-        try:
-            file_size = int(os.path.getsize(file_path) / 1024)
-            file_type = file_path.split('\\')[-1].split('.')[-1]
-        except FileNotFoundError as e:
-            return e
+
+        file_size = int(os.path.getsize(file_path) / 1024)
+        file_type = file_path.split('\\')[-1].split('.')[-1]
+
         file_metadata = {
             "file_type": file_type,
             "file_size": file_size + 1
