@@ -3,6 +3,8 @@ I have used Socket module to create a TCP connection, for sending and recving fi
 I created this mostly because i just read a computer networking book to quench my thirst of learning "how internet works", and partially because i needed a file transfer app to send
 files from android phone to PC without connecting to Global internet. But i am yet to create a client for android. Although i plane to create one in future.
 
+NOTE: PySide6 and Socket Module of Python are must requirment to run this project.
+
 This project contains 3 python file, server.py, GUI.py, and client.py.
 1) server.py
   -> This contains the class ReciveingClient for establishing the server, creating and accepting the TCP connection, and at last recving the file.
