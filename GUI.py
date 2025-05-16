@@ -91,43 +91,43 @@ class MainWindow(QtWidgets.QWidget):
         self.stacked.addWidget(self.recv_frame)
         self.stacked.addWidget(self.send_frame_page)
     def recv_file_button_clicked(self):
-        if int(self.port_number.text()) > 64000 or int(self.port_number.text())<0:
-            port_warning_dialog = QtWidgets.QMessageBox.warning(self,"wrong Port Number","port number should be between 0 and 64000",QtWidgets.QMessageBox.Ok)
+        if int(self.port_number.text()) > 64000 or int(self.port_number.text()) < 0:
+            port_warning_dialog = QtWidgets.QMessageBox.warning(self, "wrong Port Number",
+                                                                "port number should be between 0 and 64000",
+                                                                QtWidgets.QMessageBox.Ok)
             return None
         else:
             recv_client = ReceivingClient(server_port=int(self.port_number.text()))
             recv_client.create_connection_socket()
             recv_bytes, file_type = recv_client.recv_file()
-            file_path, _ = QtWidgets.QFileDialog.getSaveFileName(self,"Save As","",f"{file_type}(*.{file_type});;All Files (*)")
-
-            if file_path:
-                recv_client.save_file(recv_bytes,file_type,file_path=file_path)
+            try:
+                file_path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save As", "",
+                                                                     f"{file_type}(*.{file_type});;All Files (*)")
+                recv_client.save_file(recv_bytes, file_type, file_path=file_path)
+            except TypeError:
+                filenotrecived_warning_dialog = QtWidgets.QMessageBox.warning(self, "File Not Recived",
+                                                                              "Header Mising ",
+                                                                              QtWidgets.QMessageBox.Ok)
 
     def open_file_button_clicked(self):
-        file_path,_ = QtWidgets.QFileDialog.getOpenFileName(self,"Open","")
-
-        if file_path:
-            self.opend_file_name.setText(file_path)
-            return file_path
+        self.sendfile_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open", "")
+        print(self.sendfile_path)
+        if self.sendfile_path:
+            self.opend_file_name.setText(self.sendfile_path)
+            return self.sendfile_path
 
 
     def send_file_button_clicked(self):
-        send_file = SendFileClient(server_port=int(self.port_number_send.text()),ip_address=self.ip_address_of_server.text())
-        send_file.send_file(self.open_file_button_clicked())
+
+        try:
+            send_file = SendFileClient(server_port=int(self.port_number_send.text()),
+                                       ip_address=self.ip_address_of_server.text())
+            send_file.send_file(self.sendfile_path)
+        except Exception as e:
+            sendfile_error_dialog = QtWidgets.QMessageBox.warning(self, f"{e}",
+                                                                  f"Error {e}",
+                                                                  QtWidgets.QMessageBox.Ok)
         send_file.close_connection()
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
