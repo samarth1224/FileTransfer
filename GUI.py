@@ -1,8 +1,8 @@
 import sys
 from PySide6 import QtCore,QtWidgets
 from PySide6.QtGui import QIntValidator
-from main import ReceivingClient
-from client import SendFileClient
+from server import ReceivingClient
+from server import SendFileClient
 
 class MainWindow(QtWidgets.QWidget):
     def __init__(self,parent=None):
