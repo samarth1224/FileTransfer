@@ -1,7 +1,7 @@
 A simple File Transfer client made using Socket module of Python,and GUI created using PySide6.
 I have used Socket module to create a TCP connection, for sending and recving files.
 I created this mostly because i just read a computer networking book to quench my thirst of learning "how internet works", and partially because i needed a file transfer app to send
-files from android phone to PC without connecting to Global internet. But i am yet to create a client for android. Although i plane to do create one in future.
+files from android phone to PC without connecting to Global internet. But i am yet to create a client for android. Although i plane to create one in future.
 
 This project contains 3 python file, server.py, GUI.py, and client.py.
 1) server.py
