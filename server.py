@@ -24,22 +24,17 @@ class ReceivingClient():
         """ recieve file data """
         recieved_bytes = b''
         file_type = None
-        try:
-            header = self._recv_header()
-            file_type = header["file_type"]
-            kb = header["file_size"]
-            for i in range(kb):
-                recieved_bytes += self.connection_socket.recv(1024)
-            return  (recieved_bytes,file_type)
-        except KeyError:
-            return (None,None)
+
+        header = self._recv_header()
+        file_type = header["file_type"]
+        kb = header["file_size"]
+        for i in range(kb):
+            recieved_bytes += self.connection_socket.recv(1024)
+
 
     def save_file(self,recieved_bytes,file_type,file_path):
-        if recieved_bytes is None or file_type == None:
-            return  None
-        else:
-            with open(f"{file_path}", 'wb') as file:
-                file.write(recieved_bytes)
+        with open(f"{file_path}", 'wb') as file:
+             file.write(recieved_bytes)
         self.connection_socket.close()
 
     def close_connection(self):

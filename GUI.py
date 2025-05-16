@@ -2,7 +2,7 @@ import sys
 from PySide6 import QtCore,QtWidgets
 from PySide6.QtGui import QIntValidator
 from server import ReceivingClient
-from server import SendFileClient
+from client import SendFileClient
 
 class MainWindow(QtWidgets.QWidget):
     def __init__(self,parent=None):
@@ -97,16 +97,18 @@ class MainWindow(QtWidgets.QWidget):
                                                                 QtWidgets.QMessageBox.Ok)
             return None
         else:
-            recv_client = ReceivingClient(server_port=int(self.port_number.text()))
-            recv_client.create_connection_socket()
-            recv_bytes, file_type = recv_client.recv_file()
             try:
+                recv_client = ReceivingClient(server_port=int(self.port_number.text()))
+                recv_client.create_connection_socket()
+                recv_bytes, file_type = recv_client.recv_file()
+
                 file_path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save As", "",
-                                                                     f"{file_type}(*.{file_type});;All Files (*)")
+                                                                         f"{file_type}(*.{file_type});;All Files (*)")
                 recv_client.save_file(recv_bytes, file_type, file_path=file_path)
-            except TypeError:
-                filenotrecived_warning_dialog = QtWidgets.QMessageBox.warning(self, "File Not Recived",
-                                                                              "Header Mising ",
+
+            except Exception as e:
+                filenotrecived_warning_dialog = QtWidgets.QMessageBox.warning(self, f"{e.args}",
+                                                                              f"{e}",
                                                                               QtWidgets.QMessageBox.Ok)
 
     def open_file_button_clicked(self):
