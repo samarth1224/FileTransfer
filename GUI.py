@@ -104,7 +104,7 @@ class MainWindow(QtWidgets.QWidget):
 
                 file_path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save As", "",
                                                                          f"{file_type}(*.{file_type});;All Files (*)")
-                recv_client.save_file(recv_bytes, file_type, file_path=file_path)
+                recv_client.save_file(recv_bytes,file_path=file_path)
 
             except Exception as e:
                 filenotrecived_warning_dialog = QtWidgets.QMessageBox.warning(self, f"{e.args}",
