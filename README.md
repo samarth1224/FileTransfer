@@ -20,4 +20,7 @@ This project contains 3 python file, server.py, GUI.py, and client.py.
    <br/>-> This file implements the GUI using PySide6.
    <br/>-> This file act as main file utilizing classes from both server.py and client.py.
    <br/>-> The GUI currently implemented is very basic and naive looking, but can be easily stylized later on.
-   <br/>-> The aim of the project was to use TCP connection to get to create a usable file transfer application and to learn, what challengs comes in the way when creating a network application from the ground up using sockets.
+   <br/>-> The aim of the project was to use TCP connection to get to create a usable file transfer application and to learn, what challengs comes in the way when creating a network application from the ground up using sockets. <br/>
+
+
+There are tons of changes that could be made, like a cleaner GUI with a progress bar, the option to send multiple files at a time, and the implementation of concurrency to address the application freezing during file transfers.
