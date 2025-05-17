@@ -30,9 +30,10 @@ class ReceivingClient():
         kb = header["file_size"]
         for i in range(kb):
             recieved_bytes += self.connection_socket.recv(1024)
+        return (recieved_bytes,file_type)
 
 
-    def save_file(self,recieved_bytes,file_type,file_path):
+    def save_file(self,recieved_bytes,file_path):
         with open(f"{file_path}", 'wb') as file:
              file.write(recieved_bytes)
         self.connection_socket.close()
